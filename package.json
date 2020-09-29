@@ -1,0 +1,24 @@
+{
+  "name": "@cells-training/dm-fabiola-roque-benhumea",
+  "version": "1.0.0-rc.1",
+  "description": "",
+  "keywords": [],
+  "main": "index.js",
+  "dependencies": {
+    "@bbva-web-components/bbva-core-lit-helpers": "^1.0.0",
+    "@cells-components/bgadp-accounts-v0": "^3.31.0",
+    "@cells-components/bgadp-campaigns-v1": "^3.31.0",
+    "@cells-components/bgadp-cards-v1": "^3.31.0",
+    "@cells-components/bgadp-contacts-book-v0": "^3.31.0",
+    "@cells-components/bgadp-customers-v0": "^3.31.0",
+    "@cells-components/bgadp-customers-v1": "^3.31.0",
+    "@cells-components/bgadp-promotions-v0": "^3.31.0",
+    "@cells-components/bgadp-vehicles-v0": "^3.31.0",
+    "lit-element": "^2.0.0"
+  },
+  "devDependencies": {
+    "@bbva-web-components/bbva-button-default": "^5.3.0",
+    "@cells-components/bgadp-granting-tickets": "^3.31.0",
+    "@cells/cells-component-core": "^3.0.0"
+  }
+}

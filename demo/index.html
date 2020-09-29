@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>dm-fabiola-roque-benhumea demo</title>
+  <script src="../build/webcomponents-loader.js"></script>
+  <script src="../build/scoping-ambients-shim.min.js"></script>
+  <script src="../build/custom-style-interface.min.js"></script>
+  <script>
+    {
+      const _customElementsDefine = window.customElements.define;
+      window.customElements.define = (name, cl, conf) => {
+        if (customElements.get(name)) {
+          console.warn(`${name} has been defined twice`);
+        } else {
+          _customElementsDefine.call(window.customElements, name, cl, conf);
+        }
+      };
+    }
+  </script>
+  <script defer src="../build/component.js"></script>
+  <script type="module" crossorigin="use-credentials">
+    import '../build/demo-build.js';
+  </script>
+</head>
+
+<body>
+  <bbva-core-demo-helper
+    events='["fake-login", "accounts-request-start", "accounts-request-success", "accounts-request-error"]'>
+    <bbva-core-demo-case heading="Basic" description="Default specs">
+      <template>
+        <fake-login></fake-login>
+        <dm-fabiola-roque-benhumea id="accountsDM"></dm-fabiola-roque-benhumea>
+        <bbva-button-default class="btn full-width" disabled>getAccounts()</bbva-button-default>
+
+        <div class="loading" hidden>Cargando datos...</div>
+        <script type="module">
+          const fakeLogin = document.querySelector('fake-login');
+          const accountsDM = document.querySelector('#accountsDM');
+          const buttons = document.querySelectorAll('.btn');
+          const loading = document.querySelector('.loading');
+
+          /**
+           * Se habilitan los botones cuando se realiza la autenticación
+          */
+          fakeLogin.addEventListener('fake-login', () => {
+            buttons.forEach(button => button.disabled = false);
+          });
+
+          /**
+           * Se invoca el método getCards del componente
+          */
+          buttons[0].addEventListener('click', () => {
+            accountsDM.getAccounts();
+            loading.hidden = false;
+            buttons[0].disabled = true;
+          });
+
+          /**
+           * Se agrega el listener de éxito para habilitar el botón y apagar el indicador de carga de datos
+          */
+          accountsDM.addEventListener('accounts-request-success', () => {
+            loading.hidden = true;
+            buttons[0].disabled = false;
+          });
+
+          /**
+           * Se agrega el listener de falla para habilitar el botón y apagar el indicador de carga de datos
+          */
+          accountsDM.addEventListener('accounts-request-error', () => {
+            loading.hidden = true;
+            buttons[0].disabled = false;
+          });
+
+          
+          fakeLogin.host = accountsDM.host = 'https://artichoke.platform.bbva.com';
+
+        </script>
+      </template>
+    </bbva-core-demo-case>
+  </bbva-core-demo-helper>
+</body>
+</html>
